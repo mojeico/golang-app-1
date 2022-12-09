@@ -41,10 +41,6 @@ workflows:
 
   build_and_push_image:
     jobs:
-      - test-and-verify:
-          <<: *build_and_push_image_filters
-          name: "Testing & Verifying Code For Build"
-          context: "change_it"  #MICROSERVICE_DEV
       - aws-ecr/build-and-push-image:
           <<: *build_and_push_image_filters
           name: "Building and Pushing ECR Image"
