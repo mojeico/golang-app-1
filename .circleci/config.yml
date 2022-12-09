@@ -50,4 +50,4 @@ workflows:
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           region: "$AWS_REGION"
           repo: golang-app-first
-          tag: "$CIRCLE_SHA1"
+          tag: "$CIRCLE_BRANCH-$CIRCLE_SHA1"
