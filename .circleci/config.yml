@@ -1,0 +1,65 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+# See: https://circleci.com/docs/2.0/configuration-reference
+version: 2.1
+
+# Define a job to be invoked later in a workflow.
+# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
+jobs:
+  say-hello:
+    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
+    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+    docker:
+      - image: cimg/base:stable
+    # Add steps to the job
+    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+    steps:
+      - checkout
+      - run:
+          name: "Say hello"
+          command: "echo Hello, World!"
+
+
+orbs:
+  aws-ecr: circleci/aws-ecr@8.1.2
+  sonarcloud: sonarsource/sonarcloud@1.0.3
+  ms-teams: pay-justice/ms-teams-webhooks@0.0.1
+
+
+
+build_and_push_image_filters: &build_and_push_image_filters
+  filters:
+    branches:
+      only:
+        - main
+        - develop
+        - sit
+        - preprod
+
+workflows:
+  # This workflow will run for every PR, by default
+  say-hello-workflow:
+    jobs:
+      - say-hello
+
+
+  build_and_push_image:
+    jobs:
+      - test-and-verify:
+          <<: *build_and_push_image_filters
+          name: "Testing & Verifying Code For Build"
+          context: "change_it"  #MICROSERVICE_DEV
+      - aws-ecr/build-and-push-image:
+          <<: *build_and_push_image_filters
+          name: "Building and Pushing ECR Image"
+          context: "change_it"  #MICROSERVICE_DEV
+          registry-id: "change_it"  #AWS_REGISTRY_ID
+          aws-access-key-id: "change_it"  #AWS_ACCESS_KEY_ID
+          aws-secret-access-key: "change_it"  #AWS_SECRET_ACCESS_KEY
+          region: "$AWS_REGION"
+          repo: golang-app-1
+          tag: "$CIRCLE_SHA1"
+          extra-build-args: "--build-arg NPM_TOKEN"
+          requires: ["Testing & Verifying Code For Build"]
+          post-steps:
+            - notify_failure:
+                subject: "Failed deployment of aggregator microservice"
