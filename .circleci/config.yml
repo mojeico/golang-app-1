@@ -18,9 +18,50 @@ jobs:
           name: "Say hello"
           command: "echo Hello, World!"
 
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+
+build_and_push_image_filters: &build_and_push_image_filters
+  filters:
+    tags:
+      only: /^v([0-9]*.).([0-9]*.).([0-9]*)(D|T|S|P|$)/
+    branches:
+      only:
+        - main
+        - develop
+        - sit
+        - preprod
+        -
 workflows:
+  # This workflow will run for every PR, by default
   say-hello-workflow:
     jobs:
       - say-hello
+
+  status_checks:
+    jobs:
+      - test-and-verify:
+          name: "Testing & Verifying Code For Status Checks"
+          context: MICROSERVICE_DEV
+  build_and_push_image:
+    when:
+      and:
+        - equal: [false, << pipeline.parameters.is_pull_request >>]
+    jobs:
+      - test-and-verify:
+          <<: *build_and_push_image_filters
+          name: "Testing & Verifying Code For Build"
+          context: MICROSERVICE_DEV
+      - aws-ecr/build-and-push-image:
+          <<: *build_and_push_image_filters
+          name: "Building and Pushing ECR Image"
+          context: MICROSERVICE_DEV
+          registry-id: AWS_REGISTRY_ID
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          region: "$AWS_REGION"
+          repo: zenith-ecr-microservice-aggregator
+          tag: "$CIRCLE_SHA1"
+          extra-build-args: "--build-arg NPM_TOKEN"
+          requires: ["Testing & Verifying Code For Build"]
+          post-steps:
+            - notify_failure:
+                subject: "Failed deployment of aggregator microservice"
