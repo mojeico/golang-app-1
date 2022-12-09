@@ -44,11 +44,10 @@ workflows:
       - aws-ecr/build-and-push-image:
           <<: *build_and_push_image_filters
           name: "Building and Pushing ECR Image"
-          context: "change_it"  #MICROSERVICE_DEV
-          registry-id: "change_it"  #AWS_REGISTRY_ID
-          aws-access-key-id: "change_it"  #AWS_ACCESS_KEY_ID
-          aws-secret-access-key: "change_it"  #AWS_SECRET_ACCESS_KEY
+          context: MICROSERVICE_DEV
+          registry-id: AWS_REGISTRY_ID
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           region: "$AWS_REGION"
           repo: golang-app-1
           tag: "$CIRCLE_SHA1"
-          extra-build-args: "--build-arg NPM_TOKEN"
