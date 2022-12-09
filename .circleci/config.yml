@@ -21,9 +21,6 @@ jobs:
 
 orbs:
   aws-ecr: circleci/aws-ecr@8.1.2
-  sonarcloud: sonarsource/sonarcloud@1.0.3
-  ms-teams: pay-justice/ms-teams-webhooks@0.0.1
-
 
 
 build_and_push_image_filters: &build_and_push_image_filters
