@@ -10,7 +10,7 @@ workflows:
     jobs:
       - continuation/continue:
           name: "Setting up continuation"
-          configuration_path: ".circleci/main.yml"
+          configuration_path: "main.yml"
           parameters: /home/circleci/params.json
           filters:
             tags:
