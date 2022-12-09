@@ -49,5 +49,5 @@ workflows:
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           region: "$AWS_REGION"
-          repo: golang-app-1
+          repo: golang-app-first
           tag: "$CIRCLE_SHA1"
