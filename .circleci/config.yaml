@@ -43,9 +43,6 @@ workflows:
 
 
   build_and_push_image:
-    when:
-      and:
-        - equal: [false, << pipeline.parameters.is_pull_request >>]
     jobs:
       - test-and-verify:
           <<: *build_and_push_image_filters
