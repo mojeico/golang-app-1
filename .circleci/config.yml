@@ -34,11 +34,6 @@ workflows:
     jobs:
       - say-hello
 
-  status_checks:
-    jobs:
-      - test-and-verify:
-          name: "Testing & Verifying Code For Status Checks"
-          context: "change_it" #MICROSERVICE_DEV
 
   build_and_push_image:
     when:
