@@ -52,4 +52,3 @@ workflows:
           repo: golang-app-1
           tag: "$CIRCLE_SHA1"
           extra-build-args: "--build-arg NPM_TOKEN"
-          requires: ["Testing & Verifying Code For Build"]
