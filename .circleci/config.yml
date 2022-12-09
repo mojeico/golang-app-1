@@ -53,6 +53,3 @@ workflows:
           tag: "$CIRCLE_SHA1"
           extra-build-args: "--build-arg NPM_TOKEN"
           requires: ["Testing & Verifying Code For Build"]
-          post-steps:
-            - notify_failure:
-                subject: "Failed deployment of aggregator microservice"
