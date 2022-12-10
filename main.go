@@ -21,11 +21,11 @@ func main() {
 }
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/" {
+	if r.URL.Path != "/app1" {
 		http.NotFound(w, r)
 		return
 	}
-	_, err := fmt.Fprint(w, "Hello, Golang-app-1 !")
+	_, err := fmt.Fprint(w, "Hello, Golang-app-1 !  add argo ")
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 	}
