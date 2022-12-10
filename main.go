@@ -21,7 +21,7 @@ func main() {
 }
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/app1" {
+	if r.URL.Path != "/" {
 		http.NotFound(w, r)
 		return
 	}
