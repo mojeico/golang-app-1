@@ -6,6 +6,15 @@ WORKDIR /app
 
 COPY go.mod ./
 
+
+
+LABEL "com.example.vendor"="ACME Incorporated"
+LABEL com.example.label-with-value="foo"
+LABEL version="1.0"
+LABEL description="This text illustrates
+MAINTAINER "gleb mojeico"
+
+
 RUN go mod download
 
 COPY *.go ./
