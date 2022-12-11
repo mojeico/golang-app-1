@@ -51,3 +51,4 @@ workflows:
           region: "$AWS_REGION"
           repo: golang-app-first
           tag: "$CIRCLE_BRANCH-$CIRCLE_SHA1"
+          PARAM_ACCOUNT_URL: "public.ecr.aws/t0a2u0h1"
