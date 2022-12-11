@@ -12,6 +12,7 @@ LABEL "com.example.vendor"="ACME Incorporated"
 LABEL com.example.label-with-value="foo"
 LABEL version="1.0"
 LABEL description="This text illustrates"
+LABEL alias="yourtool"
 
 
 MAINTAINER "gleb mojeico"
