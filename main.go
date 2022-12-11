@@ -25,7 +25,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
-	_, err := fmt.Fprint(w, "Hello, Golang-app-1 ! trigger 1 1 ")
+	_, err := fmt.Fprint(w, "Hello, Golang-app-1 ! trigger 1 1  RUN ARGO IMAGE UPDATER")
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 	}
