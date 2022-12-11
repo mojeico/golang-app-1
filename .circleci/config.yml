@@ -46,6 +46,6 @@ workflows:
           #public-registry: true
           region: "$AWS_REGION"
           repo: golang-app-first
-          tag: "$CIRCLE_SHA1"
-          #tag: "$CIRCLE_BRANCH-$CIRCLE_SHA1"
+          #tag: "$CIRCLE_SHA1"
+          tag: "latest,$CIRCLE_BRANCH-$CIRCLE_SHA1"
 
