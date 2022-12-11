@@ -47,5 +47,6 @@ workflows:
           region: "$AWS_REGION"
           repo: golang-app-first
           #tag: "$CIRCLE_SHA1"
+
           tag: "v3.0.1"
 
