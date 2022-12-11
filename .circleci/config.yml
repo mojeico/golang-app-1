@@ -34,11 +34,6 @@ build_and_push_image_filters: &build_and_push_image_filters
 
 workflows:
   # This workflow will run for every PR, by default
-  say-hello-workflow:
-    jobs:
-      - say-hello
-
-
   build_and_push_image:
     jobs:
       - aws-ecr/build-and-push-image:
@@ -49,8 +44,6 @@ workflows:
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           region: "$AWS_REGION"
-
-
           repo: golang-app-first
           tag: "$CIRCLE_BRANCH-$CIRCLE_SHA1"
 
