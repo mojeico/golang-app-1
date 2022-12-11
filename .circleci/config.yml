@@ -43,6 +43,7 @@ workflows:
           registry-id: AWS_REGISTRY_ID
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          public-registry: true
           region: "$AWS_REGION"
           repo: golang-app-first
           tag: "$CIRCLE_BRANCH-$CIRCLE_SHA1"
