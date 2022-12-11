@@ -25,7 +25,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
-	_, err := fmt.Fprint(w, "Hello, Golang-app-1 ! trugger udpater 1 ")
+	_, err := fmt.Fprint(w, "Hello, Golang-app-1 ! trugger udpater 1 12")
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 	}
