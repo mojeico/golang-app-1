@@ -28,9 +28,8 @@ build_and_push_image_filters: &build_and_push_image_filters
     branches:
       only:
         - main
-        - develop
-        - sit
-        - preprod
+        - dev
+        - prod
 
 workflows:
   # This workflow will run for every PR, by default
@@ -48,5 +47,5 @@ workflows:
           region: "$AWS_REGION"
           repo: golang-app-first
           #tag: "$CIRCLE_SHA1"
-          tag: "main-$CIRCLE_SHA1"
+          tag: "$CIRCLE_BRANCH-$CIRCLE_SHA1"
 
